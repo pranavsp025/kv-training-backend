@@ -1,0 +1,1 @@
+{"version":3,"file":"abstract-entity.js","sourceRoot":"","sources":["../../../src/entity/abstract-entity.ts"],"names":[],"mappings":";;;;;;;;;;;AAAA,qCAAqF;AAErF,MAAM,cAAc;CAYnB;AAVG;IADC,IAAA,gCAAsB,GAAE;;0CACf;AAGV;IADC,IAAA,0BAAgB,GAAE;8BACT,IAAI;iDAAC;AAGf;IADC,IAAA,0BAAgB,GAAE;8BACT,IAAI;iDAAC;AAGf;IADC,IAAA,0BAAgB,GAAE;8BACT,IAAI;iDAAC;AAEnB,kBAAe,cAAc,CAAC"}

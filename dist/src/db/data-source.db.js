@@ -19,8 +19,8 @@ const dataSource = new typeorm_1.DataSource({
     synchronize: false,
     logging: true,
     namingStrategy: new typeorm_naming_strategies_1.SnakeNamingStrategy(),
-    entities: ["dist/entity/*.js"],
-    migrations: ["dist/db/migrations/*.js"]
+    entities: ["dist/src/entity/*.js"],
+    migrations: ["dist/src/db/migrations/*.js"]
 });
 exports.default = dataSource;
 //# sourceMappingURL=data-source.db.js.map

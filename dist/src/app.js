@@ -18,10 +18,12 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const data_source_db_1 = __importDefault(require("./db/data-source.db"));
 const employee_routes_1 = __importDefault(require("./routes/employee.routes"));
 const error_middleware_1 = __importDefault(require("./middleware/error.middleware"));
+const department_routes_1 = __importDefault(require("./routes/department.routes"));
 const server = new express();
 server.use(body_parser_1.default.json());
 server.use(logger_middleware_1.default);
 server.use('/employee', employee_routes_1.default);
+server.use('/department', department_routes_1.default);
 server.use(error_middleware_1.default);
 server.get('/', (req, res) => {
     console.log(req.url);

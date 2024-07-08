@@ -1,3 +1,4 @@
+
 import { MigrationInterface, QueryRunner } from "typeorm";
 
 export class CreateEmployee1720090252446 implements MigrationInterface {

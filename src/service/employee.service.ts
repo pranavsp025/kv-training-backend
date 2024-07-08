@@ -2,12 +2,16 @@ import EmployeeRepository from "../repository/employee.repository";
 import Employee from "../entity/employee.entity";
 import Address from "../entity/address.entity";
 import bcrypt from "bcrypt";
-import { EntityNotFoundError } from "typeorm";
+import { EntityNotFoundError, getRepository } from "typeorm";
 import jsonwebtoken from "jsonwebtoken";
 import { JWT_SECRET, JWT_VALIDITY } from "../utils/constants";
 import { jwtPayload } from "../utils/jwtPayload";
-import IncorrectPasswordException from "../exceptions/incorrectPassword.exception";
+// import IncorrectPasswordException from "../exceptions/incorrectPassword.exception";
 import { ErrorCodes } from "../utils/error.code";
+import Department from "../entity/department.entity";
+import DepartmentRepository from "../repository/department.repository";
+import DepartmentService from "./department.services";
+import dataSource from "../db/data-source.db";
 
 
 
@@ -23,7 +27,7 @@ class EmployeeService {
     async getEmployeeById(id: number): Promise<Employee | null> {
         return this.employeeRepository.findOneBy({id});
     }
-    async createEmployee(employee:Employee,address:Address): Promise<Employee | null>  {
+    async createEmployee(employee:any,address:Address): Promise<Employee | null>  {
         const newEmployee = new Employee();
         newEmployee.email=employee.email;
         newEmployee.name=employee.name;
@@ -34,7 +38,11 @@ class EmployeeService {
         newAddress.line1 = address.line1;
         newAddress.pincode = address.pincode;
         newEmployee.address=newAddress;
+        const departmentService = await new DepartmentService(new DepartmentRepository(dataSource.getRepository(Department)) )
+        const department=await departmentService.getDepartmentById(employee.department.department_id);
+        newEmployee.department = department;
 
+        console.log(newEmployee);
 
         return this.employeeRepository.save(newEmployee);
     }
@@ -48,6 +56,7 @@ class EmployeeService {
         employee.role = updateEmployee.role;
         employee.address.line1 = updateEmployee.address?.line1;
         employee.address.pincode = updateEmployee.address?.pincode;
+        
 
 
         return this.employeeRepository.save(employee);

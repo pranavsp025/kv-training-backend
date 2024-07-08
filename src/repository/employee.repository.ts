@@ -1,6 +1,7 @@
 import dataSource from "../db/data-source.db";
 import Employee from "../entity/employee.entity";
 import { Repository } from "typeorm";
+import Department from "../entity/department.entity";
 
 class EmployeeRepository{
     static find: any;
@@ -11,14 +12,14 @@ class EmployeeRepository{
 
     async find() {
         return this.repository.find({
-            relations:["address"]
+            relations:["address","department"]
         });
     }
 
     async findOneBy(filter: Partial<Employee>) {
         return this.repository.findOne({
             where: filter,
-            relations: ["address"]
+            relations: ["address","department"]
         });
     }
 
@@ -38,6 +39,7 @@ class EmployeeRepository{
         return this.repository.save(updateEmployee);
 
     }
+    
 }
 
 export default EmployeeRepository;

@@ -15,95 +15,83 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const class_transformer_1 = require("class-transformer");
 const http_exceptions_1 = __importDefault(require("../exceptions/http.exceptions"));
 const express_1 = __importDefault(require("express"));
-const employee_dto_1 = require("../dto/employee.dto");
 const class_validator_1 = require("class-validator");
-class EmployeeController {
-    constructor(employeeService) {
-        this.employeeService = employeeService;
-        this.getAllEmployees = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const employees = yield this.employeeService.getAllEmployees();
-            res.status(200).send(employees);
+const department_dto_1 = require("../dto/department.dto");
+class DepartmentController {
+    constructor(departmentService) {
+        this.departmentService = departmentService;
+        this.getAllDepartments = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const departments = yield this.departmentService.getAllDepartments();
+            res.status(200).send(departments);
         });
-        this.getEmployeeById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.getDepartmentById = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const employees = yield this.employeeService.getEmployeeById(Number(req.params.id));
-                if (!employees) {
+                const departments = yield this.departmentService.getDepartmentById(Number(req.params.id));
+                if (!departments) {
                     const error = new http_exceptions_1.default(404, `No employee with ID: ${req.params.id}`);
                     throw error;
                 }
-                res.status(200).send(employees);
+                res.status(200).send(departments);
             }
             catch (err) {
                 next(err);
             }
         });
-        this.createEmployee = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.createDepartment = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const role = req.body.role;
                 // if(role!==Role.HR){
                 //     throw new HttpException(403,"You are not authorized to create Employee");
                 //     // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
                 // }
-                const employeeDto = (0, class_transformer_1.plainToInstance)(employee_dto_1.CreateEmployeeDto, req.body);
-                const errors = yield (0, class_validator_1.validate)(employeeDto);
+                const departmentDto = (0, class_transformer_1.plainToInstance)(department_dto_1.CreateDepartmentDto, req.body);
+                const errors = yield (0, class_validator_1.validate)(departmentDto);
                 if (errors.length) {
                     console.log(JSON.stringify(errors));
                     throw new http_exceptions_1.default(400, JSON.stringify(errors));
                 }
-                const employee = yield this.employeeService.createEmployee(req.body, req.body.address);
-                res.status(201).send(employee);
+                const department = yield this.departmentService.createDepartment(req.body);
+                res.status(201).send(department);
             }
             catch (err) {
                 next(err);
             }
         });
-        this.updateEmployee = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.updateDepartment = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const employeeDto = (0, class_transformer_1.plainToInstance)(employee_dto_1.CreateEmployeeDto, req.body);
-                const errors = yield (0, class_validator_1.validate)(employeeDto);
+                const departmentDto = (0, class_transformer_1.plainToInstance)(department_dto_1.CreateDepartmentDto, req.body);
+                const errors = yield (0, class_validator_1.validate)(departmentDto);
                 if (errors.length) {
                     console.log(JSON.stringify(errors));
                     throw new http_exceptions_1.default(400, JSON.stringify(errors));
                 }
-                const employees = yield this.employeeService.updateEmployee(Number(req.params.id), req.body);
-                res.status(200).send(employees);
+                const departments = yield this.departmentService.updateDepartment(Number(req.params.id), req.body);
+                res.status(200).send(departments);
             }
             catch (err) {
                 next(err);
             }
         });
-        this.deleteEmployee = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+        this.deleteDepartment = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
                 if (!req.params.id) {
                     const error = new http_exceptions_1.default(404, `No employee with ID: ${req.params.id}`);
                     throw error;
                 }
-                const employees = yield this.employeeService.delete(Number(req.params.id));
-                res.status(204).send(employees);
-            }
-            catch (err) {
-                next(err);
-            }
-        });
-        this.loginEmployee = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
-            const { email, password } = req.body;
-            try {
-                const token = yield this.employeeService.loginEmployee(email, password);
-                res.status(200).send({ data: token });
+                const departments = yield this.departmentService.delete(Number(req.params.id));
+                res.status(204).send(departments);
             }
             catch (err) {
                 next(err);
             }
         });
         this.router = express_1.default.Router();
-        this.router.get("/", this.getAllEmployees);
-        this.router.get("/:id", this.getEmployeeById);
-        this.router.post("/", this.createEmployee);
-        // this.router.post("/",authorize, this.createEmployee);
-        this.router.put("/:id", this.updateEmployee);
-        this.router.delete("/:id", this.deleteEmployee);
-        this.router.post("/login", this.loginEmployee);
+        this.router.get("/", this.getAllDepartments);
+        this.router.get("/:id", this.getDepartmentById);
+        this.router.post("/", this.createDepartment);
+        this.router.put("/:id", this.updateDepartment);
+        this.router.delete("/:id", this.deleteDepartment);
     }
 }
-exports.default = EmployeeController;
-//# sourceMappingURL=employee.controller.js.map
+exports.default = DepartmentController;
+//# sourceMappingURL=department.controller.js.map

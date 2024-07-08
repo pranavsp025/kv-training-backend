@@ -9,28 +9,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class EmployeeRepository {
+class DepartmentRepository {
     constructor(repository) {
         this.repository = repository;
     }
     find() {
         return __awaiter(this, void 0, void 0, function* () {
             return this.repository.find({
-                relations: ["address", "department"]
+                relations: ["employee"]
             });
         });
     }
     findOneBy(filter) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.repository.findOne({
+            const result = yield this.repository.findOne({
                 where: filter,
-                relations: ["address", "department"]
+                relations: ["employee"]
             });
+            return result;
         });
     }
-    save(newEmployee) {
+    save(newDepartment) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.repository.save(newEmployee);
+            return this.repository.save(newDepartment);
         });
     }
     softDelete(id) {
@@ -38,16 +39,16 @@ class EmployeeRepository {
             yield this.repository.softDelete(id);
         });
     }
-    softRemove(employee) {
+    softRemove(department) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.repository.softRemove(employee);
+            yield this.repository.softRemove(department);
         });
     }
-    update(updateEmployee) {
+    update(updateDepartment) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.repository.save(updateEmployee);
+            return this.repository.save(updateDepartment);
         });
     }
 }
-exports.default = EmployeeRepository;
-//# sourceMappingURL=employee.repository.js.map
+exports.default = DepartmentRepository;
+//# sourceMappingURL=department.repository.js.map

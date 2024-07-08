@@ -68,6 +68,9 @@ class EmployeeService {
             newEmployee.address = newAddress;
             const departmentService = yield new department_services_1.default(new department_repository_1.default(data_source_db_1.default.getRepository(department_entity_1.default)));
             const department = yield departmentService.getDepartmentById(employee.department.department_id);
+            if (employee.department.id !== department.id) {
+                console.log("error");
+            }
             newEmployee.department = department;
             console.log(newEmployee);
             return this.employeeRepository.save(newEmployee);
@@ -99,6 +102,7 @@ class EmployeeService {
             employee.role = patchEmployee.role;
             employee.address.line1 = (_a = patchEmployee.address) === null || _a === void 0 ? void 0 : _a.line1;
             employee.address.pincode = (_b = patchEmployee.address) === null || _b === void 0 ? void 0 : _b.pincode;
+            employee.department = patchEmployee.department;
             return this.employeeRepository.save(employee);
         });
     }

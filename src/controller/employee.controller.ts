@@ -8,6 +8,7 @@ import { NextFunction } from "express-serve-static-core";
 import authorize from "../middleware/authorization.middleware";
 import { RequestWithUser } from "../utils/requestWithUser";
 import { Role } from "../utils/role.enum";
+import departmentRouter from "../routes/department.routes";
 class EmployeeController{
     public router: express.Router;
     constructor(private employeeService: EmployeeService) {
@@ -56,6 +57,7 @@ class EmployeeController{
                 console.log(JSON.stringify(errors));
                 throw new HttpException(400,JSON.stringify(errors));
             }
+            
             const employee = await this.employeeService.createEmployee(employeeDto,req.body.address);
             res.status(201).send(employee);
         }

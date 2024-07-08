@@ -40,6 +40,9 @@ class EmployeeService {
         newEmployee.address=newAddress;
         const departmentService = await new DepartmentService(new DepartmentRepository(dataSource.getRepository(Department)) )
         const department=await departmentService.getDepartmentById(employee.department.department_id);
+        if(employee.department.id!==department.id){
+            console.log("error")
+        }
         newEmployee.department = department;
 
         console.log(newEmployee);
@@ -69,6 +72,7 @@ class EmployeeService {
         employee.role = patchEmployee.role;
         employee.address.line1 = patchEmployee.address?.line1;
         employee.address.pincode = patchEmployee.address?.pincode;
+        employee.department = patchEmployee.department;
         return this.employeeRepository.save(employee);
     }
 

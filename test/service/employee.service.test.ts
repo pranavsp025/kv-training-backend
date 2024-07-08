@@ -32,6 +32,7 @@ describe ('Employee Service', () =>{
         expect(mock).toHaveBeenCalledTimes(1);
 
     })
+    
     it('should throw exception', async() => {
         const mockedFunction = jest.fn();
         when(mockedFunction).mockResolvedValue(null);

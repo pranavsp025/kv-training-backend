@@ -1,1 +1,1 @@
-{"version":3,"file":"department.dto.js","sourceRoot":"","sources":["../../../src/dto/department.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAA+D;AAE/D,MAAa,mBAAmB;CAM/B;AAND,kDAMC;AAFG;IAFC,IAAA,4BAAU,GAAE;IACZ,IAAA,0BAAQ,GAAE;;4DACW"}
+{"version":3,"file":"department.dto.js","sourceRoot":"","sources":["../../../src/dto/department.dto.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qDAA2E;AAE3E,MAAa,mBAAmB;CAM/B;AAND,kDAMC;AAFG;IAFC,IAAA,4BAAU,GAAE;IACZ,IAAA,0BAAQ,GAAE;;4DACW;AAI1B,MAAa,mBAAmB;CAK/B;AALD,kDAKC;AADG;IAFC,IAAA,4BAAU,GAAE;IACZ,IAAA,0BAAQ,GAAE;;4DACW"}

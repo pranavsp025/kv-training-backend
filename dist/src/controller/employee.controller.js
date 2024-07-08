@@ -52,7 +52,7 @@ class EmployeeController {
                     console.log(JSON.stringify(errors));
                     throw new http_exceptions_1.default(400, JSON.stringify(errors));
                 }
-                const employee = yield this.employeeService.createEmployee(req.body, req.body.address);
+                const employee = yield this.employeeService.createEmployee(employeeDto, req.body.address);
                 res.status(201).send(employee);
             }
             catch (err) {
@@ -73,6 +73,26 @@ class EmployeeController {
                     throw new http_exceptions_1.default(400, JSON.stringify(errors));
                 }
                 const employees = yield this.employeeService.updateEmployee(Number(req.params.id), req.body);
+                res.status(200).send(employees);
+            }
+            catch (err) {
+                next(err);
+            }
+        });
+        this.patchEmployee = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const role = req.role;
+                if (role !== role_enum_1.Role.HR) {
+                    throw new http_exceptions_1.default(403, "You are not authorized to create Employee");
+                    // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+                }
+                const employeeDto = (0, class_transformer_1.plainToInstance)(employee_dto_1.UpdateEmployeeDto, req.body);
+                const errors = yield (0, class_validator_1.validate)(employeeDto);
+                if (errors.length) {
+                    console.log(JSON.stringify(errors));
+                    throw new http_exceptions_1.default(400, JSON.stringify(errors));
+                }
+                const employees = yield this.employeeService.patchEmployee(Number(req.params.id), req.body);
                 res.status(200).send(employees);
             }
             catch (err) {
@@ -115,6 +135,7 @@ class EmployeeController {
         this.router.put("/:id", authorization_middleware_1.default, this.updateEmployee);
         this.router.delete("/:id", authorization_middleware_1.default, this.deleteEmployee);
         this.router.post("/login", this.loginEmployee);
+        this.router.patch("/:id", authorization_middleware_1.default, this.patchEmployee);
     }
 }
 exports.default = EmployeeController;

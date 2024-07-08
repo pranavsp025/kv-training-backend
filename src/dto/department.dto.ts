@@ -1,4 +1,4 @@
-import { IsEmpty, IsNotEmpty, IsString } from "class-validator"
+import { IsEmpty, IsNotEmpty, IsOptional, IsString } from "class-validator"
 
 export class CreateDepartmentDto {
 
@@ -6,4 +6,11 @@ export class CreateDepartmentDto {
     @IsString()
     department_name:string
 
+}
+
+export class UpdateDepartmentDto{
+    
+    @IsOptional()
+    @IsString()
+    department_name:string
 }

@@ -52,14 +52,22 @@ class EmployeeService {
         employee.name = updateEmployee.name;
         employee.email = updateEmployee.email;
         employee.age = updateEmployee.age;
-        employee.password = updateEmployee.password ? await bcrypt.hash(employee.password,10):"";
+        employee.password = updateEmployee.password ? await bcrypt.hash(updateEmployee.password,10):"";
         employee.role = updateEmployee.role;
         employee.address.line1 = updateEmployee.address?.line1;
         employee.address.pincode = updateEmployee.address?.pincode;
-        const departmentService = await new DepartmentService(new DepartmentRepository(dataSource.getRepository(Department)) )
-        const department=await departmentService.getDepartmentById(employee.department.id);
-        employee.department = department;
+        return this.employeeRepository.save(employee);
+    }
 
+    async patchEmployee(id:number,patchEmployee:Employee): Promise<Employee | null>  {
+        const employee = await this.employeeRepository.findOneBy({id});
+        employee.name = patchEmployee.name;
+        employee.email = patchEmployee.email;
+        employee.age = patchEmployee.age;
+        employee.password = patchEmployee.password ? await bcrypt.hash(patchEmployee.password,10):"";
+        employee.role = patchEmployee.role;
+        employee.address.line1 = patchEmployee.address?.line1;
+        employee.address.pincode = patchEmployee.address?.pincode;
         return this.employeeRepository.save(employee);
     }
 

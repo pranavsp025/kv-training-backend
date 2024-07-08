@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateAddressDto = void 0;
+exports.UpdateAddressDto = exports.CreateAddressDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateAddressDto {
 }
@@ -24,4 +24,17 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateAddressDto.prototype, "pincode", void 0);
+class UpdateAddressDto {
+}
+exports.UpdateAddressDto = UpdateAddressDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateAddressDto.prototype, "line1", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateAddressDto.prototype, "pincode", void 0);
 //# sourceMappingURL=address.dto.js.map

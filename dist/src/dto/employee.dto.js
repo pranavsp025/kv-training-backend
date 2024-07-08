@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateEmployeeDto = void 0;
+exports.UpdateEmployeeDto = exports.CreateEmployeeDto = void 0;
 const class_validator_1 = require("class-validator");
 const address_dto_1 = require("./address.dto");
 require("reflect-metadata");
@@ -48,4 +48,38 @@ __decorate([
     (0, class_validator_1.IsEnum)(role_enum_1.Role),
     __metadata("design:type", String)
 ], CreateEmployeeDto.prototype, "role", void 0);
+class UpdateEmployeeDto {
+}
+exports.UpdateEmployeeDto = UpdateEmployeeDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateEmployeeDto.prototype, "name", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEmail)(),
+    __metadata("design:type", String)
+], UpdateEmployeeDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], UpdateEmployeeDto.prototype, "age", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.ValidateNested)({ each: true }),
+    (0, class_transformer_1.Type)(() => address_dto_1.CreateAddressDto),
+    __metadata("design:type", address_dto_1.CreateAddressDto)
+], UpdateEmployeeDto.prototype, "address", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateEmployeeDto.prototype, "password", void 0);
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsEnum)(role_enum_1.Role),
+    __metadata("design:type", String)
+], UpdateEmployeeDto.prototype, "role", void 0);
 //# sourceMappingURL=employee.dto.js.map

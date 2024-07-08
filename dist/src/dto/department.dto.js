@@ -9,7 +9,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CreateDepartmentDto = void 0;
+exports.UpdateDepartmentDto = exports.CreateDepartmentDto = void 0;
 const class_validator_1 = require("class-validator");
 class CreateDepartmentDto {
 }
@@ -19,4 +19,12 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateDepartmentDto.prototype, "department_name", void 0);
+class UpdateDepartmentDto {
+}
+exports.UpdateDepartmentDto = UpdateDepartmentDto;
+__decorate([
+    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateDepartmentDto.prototype, "department_name", void 0);
 //# sourceMappingURL=department.dto.js.map

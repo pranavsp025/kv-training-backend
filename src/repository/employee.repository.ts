@@ -40,6 +40,10 @@ class EmployeeRepository{
 
     }
     
+    async patch(patchEmployee: Partial<Employee>) {
+        return this.repository.save(patchEmployee);
+
+    }
 }
 
 export default EmployeeRepository;

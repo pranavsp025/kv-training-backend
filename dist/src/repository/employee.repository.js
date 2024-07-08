@@ -48,6 +48,11 @@ class EmployeeRepository {
             return this.repository.save(updateEmployee);
         });
     }
+    patch(patchEmployee) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.repository.save(patchEmployee);
+        });
+    }
 }
 exports.default = EmployeeRepository;
 //# sourceMappingURL=employee.repository.js.map

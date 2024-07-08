@@ -84,6 +84,7 @@ class EmployeeService {
             employee.role = updateEmployee.role;
             employee.address.line1 = (_a = updateEmployee.address) === null || _a === void 0 ? void 0 : _a.line1;
             employee.address.pincode = (_b = updateEmployee.address) === null || _b === void 0 ? void 0 : _b.pincode;
+            employee.department = updateEmployee.department;
             return this.employeeRepository.save(employee);
         });
     }

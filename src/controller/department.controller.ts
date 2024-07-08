@@ -20,7 +20,7 @@ class DepartmentController{
         this.router.post("/",authorize, this.createDepartment);
         this.router.put("/:id",authorize,this.updateDepartment);
         this.router.delete("/:id",authorize,this.deleteDepartment);
-
+        
 
     }
     public getAllDepartments = async(req:express.Request, res:express.Response) => {

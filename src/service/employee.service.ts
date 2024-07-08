@@ -56,6 +56,7 @@ class EmployeeService {
         employee.role = updateEmployee.role;
         employee.address.line1 = updateEmployee.address?.line1;
         employee.address.pincode = updateEmployee.address?.pincode;
+        employee.department = updateEmployee.department;
         return this.employeeRepository.save(employee);
     }
 

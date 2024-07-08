@@ -43,6 +43,7 @@ class DepartmentService {
     async delete(id:number){
         const department = await this.departmentRepository.findOneBy({id});
         await this.departmentRepository.softRemove(department);
+        
     }
     
     

@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToMany } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, Unique } from "typeorm";
 import AbstractEntity from "./abstract-entity";
 import Employee from "./employee.entity";
 
@@ -7,7 +7,7 @@ class Department extends AbstractEntity{
     // @Column()
     // department_id:number;
 
-    @Column()
+    @Column({unique:true})
     department_name:string;
 
     
@@ -16,6 +16,7 @@ class Department extends AbstractEntity{
     })
     @JoinColumn()
     employee:Employee[];
+    department_id: number;
 
     
 }

@@ -18,7 +18,7 @@ const employee_entity_1 = __importDefault(require("./employee.entity"));
 let Department = class Department extends abstract_entity_1.default {
 };
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], Department.prototype, "department_name", void 0);
 __decorate([

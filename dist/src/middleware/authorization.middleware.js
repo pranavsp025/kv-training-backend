@@ -29,7 +29,9 @@ const authorize = (req, res, next) => __awaiter(void 0, void 0, void 0, function
 });
 const getTokenFromRequestHeader = (req) => {
     const bearerToken = req.header("Authorization");
-    return bearerToken;
+    console.log("bearerToken: ", bearerToken);
+    const token = bearerToken ? bearerToken.replace("Bearer ", "") : "";
+    return token;
 };
 exports.default = authorize;
 //# sourceMappingURL=authorization.middleware.js.map

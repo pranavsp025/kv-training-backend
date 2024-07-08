@@ -16,6 +16,8 @@ const class_transformer_1 = require("class-transformer");
 const http_exceptions_1 = __importDefault(require("../exceptions/http.exceptions"));
 const express_1 = __importDefault(require("express"));
 const class_validator_1 = require("class-validator");
+const authorization_middleware_1 = __importDefault(require("../middleware/authorization.middleware"));
+const role_enum_1 = require("../utils/role.enum");
 const department_dto_1 = require("../dto/department.dto");
 class DepartmentController {
     constructor(departmentService) {
@@ -28,7 +30,7 @@ class DepartmentController {
             try {
                 const departments = yield this.departmentService.getDepartmentById(Number(req.params.id));
                 if (!departments) {
-                    const error = new http_exceptions_1.default(404, `No employee with ID: ${req.params.id}`);
+                    const error = new http_exceptions_1.default(404, `No department with ID: ${req.params.id}`);
                     throw error;
                 }
                 res.status(200).send(departments);
@@ -39,11 +41,11 @@ class DepartmentController {
         });
         this.createDepartment = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
-                const role = req.body.role;
-                // if(role!==Role.HR){
-                //     throw new HttpException(403,"You are not authorized to create Employee");
-                //     // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
-                // }
+                const role = req.role;
+                if (role !== role_enum_1.Role.HR) {
+                    throw new http_exceptions_1.default(403, "You are not authorized to create Department");
+                    // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+                }
                 const departmentDto = (0, class_transformer_1.plainToInstance)(department_dto_1.CreateDepartmentDto, req.body);
                 const errors = yield (0, class_validator_1.validate)(departmentDto);
                 if (errors.length) {
@@ -59,6 +61,11 @@ class DepartmentController {
         });
         this.updateDepartment = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
+                const role = req.role;
+                if (role !== role_enum_1.Role.HR) {
+                    throw new http_exceptions_1.default(403, "You are not authorized to create Department");
+                    // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+                }
                 const departmentDto = (0, class_transformer_1.plainToInstance)(department_dto_1.CreateDepartmentDto, req.body);
                 const errors = yield (0, class_validator_1.validate)(departmentDto);
                 if (errors.length) {
@@ -74,8 +81,13 @@ class DepartmentController {
         });
         this.deleteDepartment = (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             try {
+                const role = req.role;
+                if (role !== role_enum_1.Role.HR) {
+                    throw new http_exceptions_1.default(403, "You are not authorized to create Department");
+                    // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+                }
                 if (!req.params.id) {
-                    const error = new http_exceptions_1.default(404, `No employee with ID: ${req.params.id}`);
+                    const error = new http_exceptions_1.default(404, `No Department with ID: ${req.params.id}`);
                     throw error;
                 }
                 const departments = yield this.departmentService.delete(Number(req.params.id));
@@ -88,9 +100,9 @@ class DepartmentController {
         this.router = express_1.default.Router();
         this.router.get("/", this.getAllDepartments);
         this.router.get("/:id", this.getDepartmentById);
-        this.router.post("/", this.createDepartment);
-        this.router.put("/:id", this.updateDepartment);
-        this.router.delete("/:id", this.deleteDepartment);
+        this.router.post("/", authorization_middleware_1.default, this.createDepartment);
+        this.router.put("/:id", authorization_middleware_1.default, this.updateDepartment);
+        this.router.delete("/:id", authorization_middleware_1.default, this.deleteDepartment);
     }
 }
 exports.default = DepartmentController;

@@ -17,9 +17,10 @@ class DepartmentController{
 
         this.router.get("/",this.getAllDepartments);
         this.router.get("/:id",this.getDepartmentById);
-        this.router.post("/", this.createDepartment);
-        this.router.put("/:id",this.updateDepartment);
-        this.router.delete("/:id",this.deleteDepartment);
+        this.router.post("/",authorize, this.createDepartment);
+        this.router.put("/:id",authorize,this.updateDepartment);
+        this.router.delete("/:id",authorize,this.deleteDepartment);
+
 
     }
     public getAllDepartments = async(req:express.Request, res:express.Response) => {
@@ -30,7 +31,7 @@ class DepartmentController{
         try{
             const departments = await this.departmentService.getDepartmentById(Number(req.params.id));
             if(!departments){
-                const error = new HttpException(404,`No employee with ID: ${req.params.id}`);
+                const error = new HttpException(404,`No department with ID: ${req.params.id}`);
                 throw error;
             }
             res.status(200).send(departments);
@@ -44,11 +45,11 @@ class DepartmentController{
     
     public createDepartment = async(req:RequestWithUser, res:express.Response,next:express.NextFunction) => {
         try{
-            const role=req.body.role;
-            // if(role!==Role.HR){
-            //     throw new HttpException(403,"You are not authorized to create Employee");
-            //     // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
-            // }
+            const role=req.role;
+            if(role!==Role.HR){
+                throw new HttpException(403,"You are not authorized to create Department");
+                // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+            }
             const departmentDto = plainToInstance(CreateDepartmentDto,req.body);
             const errors = await validate(departmentDto);
             if(errors.length){
@@ -62,8 +63,13 @@ class DepartmentController{
             next(err);
         }
     }
-    public updateDepartment = async(req:express.Request, res:express.Response,next:express.NextFunction) => {
+    public updateDepartment = async(req:RequestWithUser, res:express.Response,next:express.NextFunction) => {
         try{
+            const role=req.role;
+            if(role!==Role.HR){
+                throw new HttpException(403,"You are not authorized to create Department");
+                // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+            }
             const departmentDto = plainToInstance(CreateDepartmentDto,req.body);
             const errors = await validate(departmentDto);
             if(errors.length){
@@ -77,10 +83,15 @@ class DepartmentController{
             next(err);
         }
     }
-    public deleteDepartment = async(req:express.Request, res:express.Response,next:express.NextFunction) => {
+    public deleteDepartment = async(req:RequestWithUser, res:express.Response,next:express.NextFunction) => {
         try{
+            const role=req.role;
+            if(role!==Role.HR){
+                throw new HttpException(403,"You are not authorized to create Department");
+                // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+            }
             if(!req.params.id){
-                const error = new HttpException(404,`No employee with ID: ${req.params.id}`);
+                const error = new HttpException(404,`No Department with ID: ${req.params.id}`);
                 throw error;
             }
         const departments = await this.departmentService.delete(Number(req.params.id));
@@ -88,6 +99,7 @@ class DepartmentController{
         }
         catch(err){next(err);}
     }
+    
 
 
 }

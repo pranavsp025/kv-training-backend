@@ -34,7 +34,7 @@ class DepartmentService {
     async updateDepartment(id:number,updateDepartment:Department): Promise<Department | null>  {
         const department = await this.departmentRepository.findOneBy({id});
         
-        department.department_name = department?.department_name;
+        department.department_name = updateDepartment.department_name;
 
 
         return this.departmentRepository.save(department);
@@ -44,7 +44,7 @@ class DepartmentService {
         const department = await this.departmentRepository.findOneBy({id});
         await this.departmentRepository.softRemove(department);
     }
-
+    
     
 }
 export default DepartmentService;

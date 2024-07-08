@@ -48,8 +48,7 @@ __decorate([
 ], Employee.prototype, "role", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => department_entity_1.default, (department) => department.employee, {
-        cascade: true,
-        onDelete: "CASCADE"
+        cascade: ["insert", "update"]
     }),
     __metadata("design:type", department_entity_1.default)
 ], Employee.prototype, "department", void 0);

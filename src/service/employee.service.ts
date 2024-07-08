@@ -56,8 +56,9 @@ class EmployeeService {
         employee.role = updateEmployee.role;
         employee.address.line1 = updateEmployee.address?.line1;
         employee.address.pincode = updateEmployee.address?.pincode;
-        
-
+        const departmentService = await new DepartmentService(new DepartmentRepository(dataSource.getRepository(Department)) )
+        const department=await departmentService.getDepartmentById(employee.department.id);
+        employee.department = department;
 
         return this.employeeRepository.save(employee);
     }

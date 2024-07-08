@@ -75,7 +75,7 @@ class EmployeeService {
     }
     updateEmployee(id, updateEmployee) {
         return __awaiter(this, void 0, void 0, function* () {
-            var _a, _b, _c;
+            var _a, _b;
             const employee = yield this.employeeRepository.findOneBy({ id });
             employee.name = updateEmployee.name;
             employee.email = updateEmployee.email;
@@ -84,7 +84,9 @@ class EmployeeService {
             employee.role = updateEmployee.role;
             employee.address.line1 = (_a = updateEmployee.address) === null || _a === void 0 ? void 0 : _a.line1;
             employee.address.pincode = (_b = updateEmployee.address) === null || _b === void 0 ? void 0 : _b.pincode;
-            employee.department.department_name = (_c = updateEmployee.department) === null || _c === void 0 ? void 0 : _c.department_name;
+            const departmentService = yield new department_services_1.default(new department_repository_1.default(data_source_db_1.default.getRepository(department_entity_1.default)));
+            const department = yield departmentService.getDepartmentById(employee.department.id);
+            employee.department = department;
             return this.employeeRepository.save(employee);
         });
     }

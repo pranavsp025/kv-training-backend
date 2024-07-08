@@ -37,7 +37,7 @@ class DepartmentService {
     updateDepartment(id, updateDepartment) {
         return __awaiter(this, void 0, void 0, function* () {
             const department = yield this.departmentRepository.findOneBy({ id });
-            department.department_name = department === null || department === void 0 ? void 0 : department.department_name;
+            department.department_name = updateDepartment.department_name;
             return this.departmentRepository.save(department);
         });
     }

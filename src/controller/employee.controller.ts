@@ -15,11 +15,11 @@ class EmployeeController{
 
         this.router.get("/",this.getAllEmployees);
         this.router.get("/:id",this.getEmployeeById);
-        this.router.post("/", this.createEmployee);
-        // this.router.post("/",authorize, this.createEmployee);
+        // this.router.post("/", this.createEmployee);
+        this.router.post("/",authorize, this.createEmployee);
 
-        this.router.put("/:id",this.updateEmployee);
-        this.router.delete("/:id",this.deleteEmployee);
+        this.router.put("/:id",authorize,this.updateEmployee);
+        this.router.delete("/:id",authorize,this.deleteEmployee);
         this.router.post("/login",this.loginEmployee);
 
     }
@@ -44,11 +44,11 @@ class EmployeeController{
     
     public createEmployee = async(req:RequestWithUser, res:express.Response,next:express.NextFunction) => {
         try{
-            const role=req.body.role;
-            // if(role!==Role.HR){
-            //     throw new HttpException(403,"You are not authorized to create Employee");
-            //     // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
-            // }
+            const role=req.role;
+            if(role!==Role.HR){
+                throw new HttpException(403,"You are not authorized to create Employee");
+                // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+            }
             const employeeDto = plainToInstance(CreateEmployeeDto,req.body);
             const errors = await validate(employeeDto);
             if(errors.length){
@@ -62,8 +62,13 @@ class EmployeeController{
             next(err);
         }
     }
-    public updateEmployee = async(req:express.Request, res:express.Response,next:express.NextFunction) => {
+    public updateEmployee = async(req:RequestWithUser, res:express.Response,next:express.NextFunction) => {
         try{
+            const role=req.role;
+            if(role!==Role.HR){
+                throw new HttpException(403,"You are not authorized to create Employee");
+                // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+            }
             const employeeDto = plainToInstance(CreateEmployeeDto,req.body);
             const errors = await validate(employeeDto);
             if(errors.length){
@@ -77,8 +82,13 @@ class EmployeeController{
             next(err);
         }
     }
-    public deleteEmployee = async(req:express.Request, res:express.Response,next:express.NextFunction) => {
+    public deleteEmployee = async(req:RequestWithUser, res:express.Response,next:express.NextFunction) => {
         try{
+            const role=req.role;
+            if(role!==Role.HR){
+                throw new HttpException(403,"You are not authorized to create Employee");
+                // throw new IncorrectPasswordException(ErrorCodes.UNAUTHORIZED);
+            }
             if(!req.params.id){
                 const error = new HttpException(404,`No employee with ID: ${req.params.id}`);
                 throw error;

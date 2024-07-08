@@ -25,6 +25,8 @@ const authorize = async(
 }
 const getTokenFromRequestHeader= (req:RequestWithUser)=>{
     const bearerToken = req.header("Authorization");
-    return bearerToken;
+    console.log("bearerToken: ", bearerToken);
+    const token = bearerToken ? bearerToken.replace("Bearer ", "") : "";
+    return token;
 }
 export default authorize;

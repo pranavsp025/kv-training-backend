@@ -30,8 +30,7 @@ class Employee extends AbstractEntity{
     Department: any;
 
     @ManyToOne(()=> Department, (department)=> department.employee,{
-        cascade:true,
-        onDelete:"CASCADE"
+        cascade:["insert", "update"]
     })
     department:Department;
 }

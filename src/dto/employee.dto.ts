@@ -5,7 +5,7 @@ import "reflect-metadata"
 import { Type } from "class-transformer"
 import { Role } from "../utils/role.enum"
 
-export class CreateEmployeeDto{
+export class CreateEmployeeDto {
     @IsNotEmpty()
     @IsString()
     name:string

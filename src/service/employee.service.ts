@@ -31,11 +31,11 @@ class EmployeeService {
         const newEmployee = new Employee();
         newEmployee.email=employee.email;
         newEmployee.name=employee.name;
+        newEmployee.role=employee.role;
         newEmployee.age=employee.age;
         newEmployee.status=employee.status;
         newEmployee.experience=employee.experience;
         newEmployee.password=employee.password ? await bcrypt.hash(employee.password,10):"";
-        newEmployee.role=employee.role;
         const newAddress = new Address();
         newAddress.line1 = address.line1;
         newAddress.pincode = address.pincode;
@@ -56,11 +56,12 @@ class EmployeeService {
         const employee = await this.employeeRepository.findOneBy({id});
         employee.name = updateEmployee.name;
         employee.email = updateEmployee.email;
+        employee.role = updateEmployee.role;
+
         employee.age = updateEmployee.age;
         employee.status = updateEmployee.status;
         employee.experience = updateEmployee.experience;
         employee.password = updateEmployee.password ? await bcrypt.hash(updateEmployee.password,10):"";
-        employee.role = updateEmployee.role;
         employee.address.line1 = updateEmployee.address?.line1;
         employee.address.pincode = updateEmployee.address?.pincode;
         employee.department = updateEmployee.department;
@@ -71,11 +72,11 @@ class EmployeeService {
         const employee = await this.employeeRepository.findOneBy({id});
         employee.name = patchEmployee.name;
         employee.email = patchEmployee.email;
+        employee.role = patchEmployee.role;
         employee.age = patchEmployee.age;
         employee.status = patchEmployee.status;
         employee.experience = patchEmployee.experience;
         employee.password = patchEmployee.password ? await bcrypt.hash(patchEmployee.password,10):"";
-        employee.role = patchEmployee.role;
         employee.address.line1 = patchEmployee.address?.line1;
         employee.address.pincode = patchEmployee.address?.pincode;
         employee.department = patchEmployee.department;
@@ -94,7 +95,7 @@ class EmployeeService {
             // throw new EntityNotFoundError(ErrorCodes.EMPLOYEE_WITH_ID_NOT_FOUND);
         }
         const result = await bcrypt.compare(password, employee.password);
-        if(!result){
+        if(result){
             throw new Error;
             // throw new IncorrectPasswordException(ErrorCodes.INCORRECT_PASSWORD);
         

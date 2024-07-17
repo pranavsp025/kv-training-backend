@@ -31,7 +31,7 @@ class EmployeeService {
                 // throw new EntityNotFoundError(ErrorCodes.EMPLOYEE_WITH_ID_NOT_FOUND);
             }
             const result = yield bcrypt_1.default.compare(password, employee.password);
-            if (!result) {
+            if (result) {
                 throw new Error;
                 // throw new IncorrectPasswordException(ErrorCodes.INCORRECT_PASSWORD);
             }
@@ -59,11 +59,11 @@ class EmployeeService {
             const newEmployee = new employee_entity_1.default();
             newEmployee.email = employee.email;
             newEmployee.name = employee.name;
+            newEmployee.role = employee.role;
             newEmployee.age = employee.age;
             newEmployee.status = employee.status;
             newEmployee.experience = employee.experience;
             newEmployee.password = employee.password ? yield bcrypt_1.default.hash(employee.password, 10) : "";
-            newEmployee.role = employee.role;
             const newAddress = new address_entity_1.default();
             newAddress.line1 = address.line1;
             newAddress.pincode = address.pincode;
@@ -84,11 +84,11 @@ class EmployeeService {
             const employee = yield this.employeeRepository.findOneBy({ id });
             employee.name = updateEmployee.name;
             employee.email = updateEmployee.email;
+            employee.role = updateEmployee.role;
             employee.age = updateEmployee.age;
             employee.status = updateEmployee.status;
             employee.experience = updateEmployee.experience;
             employee.password = updateEmployee.password ? yield bcrypt_1.default.hash(updateEmployee.password, 10) : "";
-            employee.role = updateEmployee.role;
             employee.address.line1 = (_a = updateEmployee.address) === null || _a === void 0 ? void 0 : _a.line1;
             employee.address.pincode = (_b = updateEmployee.address) === null || _b === void 0 ? void 0 : _b.pincode;
             employee.department = updateEmployee.department;
@@ -101,11 +101,11 @@ class EmployeeService {
             const employee = yield this.employeeRepository.findOneBy({ id });
             employee.name = patchEmployee.name;
             employee.email = patchEmployee.email;
+            employee.role = patchEmployee.role;
             employee.age = patchEmployee.age;
             employee.status = patchEmployee.status;
             employee.experience = patchEmployee.experience;
             employee.password = patchEmployee.password ? yield bcrypt_1.default.hash(patchEmployee.password, 10) : "";
-            employee.role = patchEmployee.role;
             employee.address.line1 = (_a = patchEmployee.address) === null || _a === void 0 ? void 0 : _a.line1;
             employee.address.pincode = (_b = patchEmployee.address) === null || _b === void 0 ? void 0 : _b.pincode;
             employee.department = patchEmployee.department;

@@ -32,6 +32,14 @@ __decorate([
     __metadata("design:type", Number)
 ], Employee.prototype, "age", void 0);
 __decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Employee.prototype, "status", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true }),
+    __metadata("design:type", String)
+], Employee.prototype, "experience", void 0);
+__decorate([
     (0, typeorm_1.OneToOne)(() => address_entity_1.default, (address) => address.employee, {
         cascade: true,
         onDelete: "CASCADE"

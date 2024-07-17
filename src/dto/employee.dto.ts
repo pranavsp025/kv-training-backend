@@ -17,6 +17,12 @@ export class CreateEmployeeDto {
     @IsNumber()
     age:number
 
+    @IsString()
+    status:string
+
+    @IsString()
+    experience:string
+
     @IsNotEmpty()
     @ValidateNested({each:true})
     @Type(()=> CreateAddressDto)

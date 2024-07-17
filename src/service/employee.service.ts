@@ -32,6 +32,8 @@ class EmployeeService {
         newEmployee.email=employee.email;
         newEmployee.name=employee.name;
         newEmployee.age=employee.age;
+        newEmployee.status=employee.status;
+        newEmployee.experience=employee.experience;
         newEmployee.password=employee.password ? await bcrypt.hash(employee.password,10):"";
         newEmployee.role=employee.role;
         const newAddress = new Address();
@@ -55,6 +57,8 @@ class EmployeeService {
         employee.name = updateEmployee.name;
         employee.email = updateEmployee.email;
         employee.age = updateEmployee.age;
+        employee.status = updateEmployee.status;
+        employee.experience = updateEmployee.experience;
         employee.password = updateEmployee.password ? await bcrypt.hash(updateEmployee.password,10):"";
         employee.role = updateEmployee.role;
         employee.address.line1 = updateEmployee.address?.line1;
@@ -68,6 +72,8 @@ class EmployeeService {
         employee.name = patchEmployee.name;
         employee.email = patchEmployee.email;
         employee.age = patchEmployee.age;
+        employee.status = patchEmployee.status;
+        employee.experience = patchEmployee.experience;
         employee.password = patchEmployee.password ? await bcrypt.hash(patchEmployee.password,10):"";
         employee.role = patchEmployee.role;
         employee.address.line1 = patchEmployee.address?.line1;

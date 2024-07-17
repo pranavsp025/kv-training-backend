@@ -15,6 +15,12 @@ class Employee extends AbstractEntity{
 
     @Column()
     age:number;
+
+    @Column({nullable:true})
+    status:string;
+
+    @Column({nullable:true})
+    experience:string;
     
     @OneToOne(() => Address, (address)=> address.employee, {
         cascade:true,

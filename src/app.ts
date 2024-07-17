@@ -8,11 +8,13 @@ import employeeRouter from "./routes/employee.routes";
 import HttpException from "./exceptions/http.exceptions";
 import errorMiddleware from "./middleware/error.middleware";
 import departmentRouter from "./routes/department.routes";
+import cors from 'cors';
                                          
 const server = new express();       
 
 server.use(bodyParser.json());
 server.use(loggerMiddleware);    
+server.use(cors());
 server.use('/employee', employeeRouter);
 server.use('/department', departmentRouter);
 

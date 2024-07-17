@@ -9,21 +9,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Department1720419291502 = void 0;
-class Department1720419291502 {
+exports.StatusAdd1721207468786 = void 0;
+class StatusAdd1721207468786 {
     constructor() {
-        this.name = 'Department1720419291502';
+        this.name = 'StatusAdd1721207468786';
     }
     up(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "department" ADD "department_id" integer NOT NULL`);
+            yield queryRunner.query(`ALTER TABLE "employee" ADD "status" character varying`);
+            yield queryRunner.query(`ALTER TABLE "employee" ADD "experience" character varying`);
         });
     }
     down(queryRunner) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield queryRunner.query(`ALTER TABLE "department" DROP COLUMN "department_id"`);
+            yield queryRunner.query(`ALTER TABLE "employee" DROP COLUMN "experience"`);
+            yield queryRunner.query(`ALTER TABLE "employee" DROP COLUMN "status"`);
         });
     }
 }
-exports.Department1720419291502 = Department1720419291502;
-//# sourceMappingURL=1720419291502-department.js.map
+exports.StatusAdd1721207468786 = StatusAdd1721207468786;
+//# sourceMappingURL=1721207468786-status_add.js.map
